@@ -1,5 +1,5 @@
 # Auto Rarity
-A automate tool to help you managing your summoners
+An automate tool to help you managing your summoners
 
 ## Features:
 * Auto Adventure
