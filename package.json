@@ -1,0 +1,26 @@
+{
+  "name": "auto-rarity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericet/auto-rarity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericet/auto-rarity/issues"
+  },
+  "homepage": "https://github.com/ericet/auto-rarity#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.4.7",
+    "prompt-sync": "^4.2.0"
+  }
+}
