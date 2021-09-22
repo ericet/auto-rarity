@@ -6,6 +6,7 @@ An automate tool to help you managing your summoners
 * Auto Level up
 * Auto Claim glod
 * Creating summoners in bulk
+* Auto Claim RAR token
 
 ## How to use:
 * git clone https://github.com/ericet/auto-rarity.git
@@ -14,6 +15,7 @@ An automate tool to help you managing your summoners
 * Replace YOUR_WALLET_PRIVATE_KEY from .env file with your private key
 * Use `node auto_rarity.js` if you want the tool to manage your summoners
 * or `node create_summoners.js` if you want to create multiple summoners
+* or `node claim_rar.js` if you want to claim RAR tokens
 
 
 
