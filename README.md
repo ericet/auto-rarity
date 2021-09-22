@@ -7,15 +7,34 @@ An automate tool to help you managing your summoners
 * Auto Claim glod
 * Creating summoners in bulk
 * Auto Claim RAR token
+* Auto transfer RAR from each summoner to one summoner
 
 ## How to use:
+
+### Setting up
 * git clone https://github.com/ericet/auto-rarity.git
 * npm install
 * mv .env.example .env
 * Replace YOUR_WALLET_PRIVATE_KEY from .env file with your private key
-* Use `node auto_rarity.js` if you want the tool to manage your summoners
-* or `node create_summoners.js` if you want to create multiple summoners
-* or `node claim_rar.js` if you want to claim RAR tokens
+
+
+### Automate adventure, level up and claim gold actions
+* `node auto_rarity.js` 
+
+
+### Create summoners in bulk
+* `node create_summoners.js`
+* In the prompt, enter number of summoners you want to create
+
+### Claim RAR (No longer needed, all RAR have been claimed)
+* `node claim_rar.js`
+
+
+### Collect RAR
+* `node collect_rar.js`
+* In the prompt, enter the summoner ID you want all the RAR transfer to
+
+
 
 
 
