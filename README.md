@@ -6,8 +6,9 @@ An automate tool to help you managing your summoners
 * Auto Level up
 * Auto Claim glod
 * Creating summoners in bulk
-* Auto Claim RAR token
+* Auto Claim RAR token (No longer needed since all RAR tokens have been claimed)
 * Auto transfer RAR from each summoner to one summoner
+* Auto wrapping RAR to WRAR
 
 ## How to use:
 
@@ -33,6 +34,13 @@ An automate tool to help you managing your summoners
 ### Collect RAR
 * `node collect_rar.js`
 * In the prompt, enter the summoner ID you want all the RAR transfer to
+
+
+
+### Wrap RAR tokens into WRAR
+Before you're running the script, you should collect all the RAR tokens into one summoner, so you can save some gas.
+
+* `node wrap_rar.js`
 
 
 
