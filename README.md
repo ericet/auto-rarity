@@ -26,7 +26,7 @@ An automate tool to help you managing your summoners
 * `node create_summoners.js`
 * In the prompt, enter number of summoners you want to create
 
-### Claim RAR
+### Claim RAR (No longer needed, all RAR have been claimed)
 * `node claim_rar.js`
 
 
