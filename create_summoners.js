@@ -26,7 +26,7 @@ async function start(numOfSummoners) {
 
 async function createSummoner(classId) {
     return new Promise(async (resolve) => {
-        let gasPrice = (await provider.getGasPrice()) * 0.8;
+        let gasPrice = (await provider.getGasPrice());
         rarityManifestedConnected.summon(classId, {
             gasLimit: 240000,
             gasPrice: gasPrice,

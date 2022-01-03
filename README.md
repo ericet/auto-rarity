@@ -16,7 +16,8 @@ An automate tool to help you managing your summoners
 * git clone https://github.com/ericet/auto-rarity.git
 * npm install
 * mv .env.example .env
-* Replace YOUR_WALLET_PRIVATE_KEY from .env file with your private key
+* Replace YOUR_WALLET_PRIVATE_KEYS from .env file with your private key(s). If you have more than one wallet, separated by comma(,)
+ * eg: KEYS=000000000000,11111111111,22222222222
 
 
 ### Automate adventure, level up and claim gold actions

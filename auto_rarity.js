@@ -16,16 +16,25 @@ const rarityGoldContract = new ethers.Contract("0x2069B76Afe6b734Fb65D1d099E7ec6
 const INTERVAL = process.env.INTERVAL;
 
 
-let wallet;
-let nonce;
-let rarityManifestedConnected;
-let rarityGoldConnected;
-start()
+
+let keys = process.env.KEYS.split(",");
+for (let i = 0; i < keys.length; i++) {
+  setTimeout(function () {
+    start(keys[i])
+  }, 10000 * i)
+
+}
 setInterval(function () {
-  start()
+  for (let i = 0; i < keys.length; i++) {
+    setTimeout(function () {
+      start(keys[i])
+    }, 10000 * i)
+  }
 }, INTERVAL * 60 * 1000)
 
-async function adventure(summonerId) {
+
+
+async function adventure(summonerId, nonce, rarityManifestedConnected) {
   return new Promise(async (resolve, reject) => {
     let gasPrice = (await provider.getGasPrice()) * 0.8;
     rarityManifestedConnected.adventure(summonerId, {
@@ -47,7 +56,7 @@ async function adventure(summonerId) {
 }
 
 
-async function levelUp(summonerId) {
+async function levelUp(summonerId, nonce, rarityManifestedConnected) {
   return new Promise(async (resolve, reject) => {
     let gasPrice = (await provider.getGasPrice()) * 0.8;
     rarityManifestedConnected.level_up(summonerId, {
@@ -67,7 +76,7 @@ async function levelUp(summonerId) {
 }
 
 
-async function claimGold(summonerId, claimable) {
+async function claimGold(summonerId, claimable, nonce, rarityGoldConnected) {
   return new Promise(async (resolve, reject) => {
     let gasPrice = (await provider.getGasPrice()) * 0.8;
     rarityGoldConnected.claim(summonerId, {
@@ -86,17 +95,15 @@ async function claimGold(summonerId, claimable) {
   });
 }
 
-async function start() {
-  wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
-  nonce = await provider.getTransactionCount(wallet.address);
-  rarityManifestedConnected = rarityManifested.connect(wallet);
-  rarityGoldConnected = rarityGoldContract.connect(wallet);
-
-
+async function start(privateKey) {
+  let wallet = new ethers.Wallet(privateKey, provider);
+  let nonce = await provider.getTransactionCount(wallet.address);
+  let rarityManifestedConnected = rarityManifested.connect(wallet);
+  let rarityGoldConnected = rarityGoldContract.connect(wallet);
   let summoners = await getAllMySummoners(wallet.address);
-  console.log(`Total of ${summoners.length} summoners loaded`);
+  console.log(`Total of ${summoners.length} summoners loaded from ${wallet.address}`);
   for (let summoner of summoners) {
-    let summonerInfo = await getSummonerInfo(summoner);
+    let summonerInfo = await getSummonerInfo(summoner, rarityManifestedConnected);
     let nextAdventureTime = summonerInfo._log.toNumber();
     let currentXp = summonerInfo._xp / 1000000000000000000;
     let currentClass = summonerInfo._class.toNumber();
@@ -108,7 +115,7 @@ async function start() {
     if (currentTime >= nextAdventureTime) {
       if (currentLevel > 0) {
         console.log(`${summoner} ${currentSummonerType} Lv${currentLevel} xp: ${currentXp} is going to the adventure!`);
-        await adventure(summoner);
+        await adventure(summoner, nonce, rarityManifestedConnected);
       }
     } else {
       let available = secondsToHms(nextAdventureTime - currentTime);
@@ -116,10 +123,10 @@ async function start() {
     }
     if (currentXp >= nextLevelXp) {
       console.log(`summoner[${summoner}] ${currentSummonerType} Lv${currentLevel} xp: ${currentXp} is going to level up!`);
-      await levelUp(summoner);
+      await levelUp(summoner, nonce, rarityManifestedConnected);
     }
     if (claimable > 0) {
-      await claimGold(summoner, claimable);
+      await claimGold(summoner, claimable, nonce, rarityGoldConnected);
     }
   }
 
@@ -147,7 +154,7 @@ function getAllMySummoners(address) {
   });
 }
 
-function getSummonerInfo(summonerId) {
+function getSummonerInfo(summonerId, rarityManifestedConnected) {
   return new Promise((resolve, reject) => {
     rarityManifestedConnected.summoner(summonerId).then(summonerInfo => {
       resolve(summonerInfo);
